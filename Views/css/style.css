@@ -1,0 +1,64 @@
+
+/*LOGIN i REGISTER*/
+.error{
+    color: red;
+}
+/*MAIN*/
+.panel{
+    width: 20%;
+    position: fixed;
+    top: 0;
+    float: left;
+}
+
+.posty {
+    margin-left: 200px;
+    margin-right: 400px;
+}
+
+#text{
+    width: 500px;
+    height: 120px;
+    margin-right: 400px;
+    
+}
+#text2 {
+    width: 300px;
+    height: 16px;
+}
+.all{
+    background-color: #38e038;
+    margin-top: 25px;
+    margin-left: 200px;
+    margin-right: 300px;
+    width: 500px;
+    border-left: 2px black solid;
+    border-right: 2px black solid;
+}
+.tweets {
+    word-wrap: break-word;
+    margin-left: 100px;
+    margin-right: 150px;
+}
+
+.comment{
+    margin-left: 100px;
+    
+}
+.comtext {
+    
+    margin-left: 100px;
+    border-bottom: 1px silver solid;
+}
+/*Span tweet text*/
+
+.text1{
+    font-size: 24px;
+    font-weight: bold;
+}
+.text2 {
+    font-size: 14px;
+}
+.text3{
+    font-size: 18px;
+}
