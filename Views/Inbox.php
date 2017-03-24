@@ -24,9 +24,10 @@ if (!isset($_SESSION['zalogowany'])){
         <title>Inbox</title>
     </head>
     <body>
+        <p><a href="main.php">Main page</a></p>
         <div>
             <div class="newmessages">
-                <h1>New Messages</h1>
+                <h1>New Messages:</h1>
                 <?php
                 $receiverId = $_SESSION['id'];
 
@@ -55,7 +56,7 @@ if (!isset($_SESSION['zalogowany'])){
                 ?>
             </div>
             <div class="readmessages">
-                <h1>Read messages</h1>
+                <h1>Read messages:</h1>
                 <?php
                 if (count($allMessages) > 0){
 
@@ -82,5 +83,7 @@ if (!isset($_SESSION['zalogowany'])){
         </div>
     </body>
 </html>
+            
+            
             
                     
