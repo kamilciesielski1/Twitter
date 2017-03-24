@@ -18,18 +18,20 @@ if (isset($_SESSION['zalogowany']) && $_SESSION['zalogowany'] == true){
         <title>Twitter</title>
     </head>
     <body>
-        <div class="zaloguj">
-            <form method="POST" action="Views/login.php">
-            <p>Jeśli jesteś naszym użytkownikiem...</p>
-            <button type="submit" id="zaloguj" name="zaloguj">Zaloguj się</button>
-                
-        </form>
-        </div>
-        <div class="zarejestruj">
-            <form method="POST" action="Views/register.php">
-            <p>Jeśli jesteś tu pierwszy raz...</p>
-            <button type="submit" id="zarejestruj" name="zarejestruj">Zarejestruj się</button>
-        </form>
+        <div class ="index">
+            <div class="zaloguj">
+                <form method="POST" action="Views/login.php">
+                <p>If You are already a User...</p>
+                <button type="submit" id="zaloguj" name="zaloguj">Sign in</button>
+
+            </form>
+            </div>
+            <div class="zarejestruj">
+                <form method="POST" action="Views/register.php">
+                <p>If this is Your first time here...</p>
+                <button type="submit" id="zarejestruj" name="zarejestruj">Sign up</button>
+            </form>
+            </div>
         </div>
     </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+
 require_once '../Controller/TweetController.php';
 require_once '../Controller/UsersController.php';
 require_once '../Controller/CommentController.php';
@@ -8,11 +9,22 @@ require_once '../Controller/CommentController.php';
 if (!isset($_SESSION['zalogowany'])){
         header("Location: ../index.php");
         exit();
+    }
+
+if ($_SESSION['id'] == $_GET['id']){
+    header("Location: yourAcc.php");
 }
     
+if ('GET' === $_SERVER['REQUEST_METHOD']){
+    if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id'] > 0){
+        
+        $wantedUserId = $_GET['id'];
+        $wantedUser = Users::loadUserById($conn, $wantedUserId);
+        
+    }
+} 
 
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,29 +34,34 @@ if (!isset($_SESSION['zalogowany'])){
         <style>
             body{background-color: lightgreen;}
         </style>
-        <title>Your account</title>
+        <title>User page</title>
     </head>
     <body>
-        <div>
-            <?php
-            echo '<div class="panel">Your Tweets:<span class="text1">'.$_SESSION['username'].'</span><br>';
-            echo '<a href="main.php">Main page</a></div>';
+        <div class="panel">
+            <?php 
+            echo 'Page of User:<br><span class="text1"> '.$wantedUser->getUsername().'</span><br>';
+            
+            echo '<a id="sendMes" href="sendMessage.php?id='.$wantedUserId.'">Send message</a><br><br>'
             ?>
-            <div class="all">
+            
+            <a href="main.php">Main page</a>
+        </div>
+        <div class="all">
                 <?php
-                $arrayId = Tweet::loadAllTweetsByUserId($conn, $_SESSION['id']);
-                if (count($arrayId) > 0){
+                $arrayId = Tweet::loadAllTweetsByUserId($conn, $wantedUserId);
+                
+                if(count($arrayId) > 0){
                     foreach($arrayId as $tweet1){
-                        $tweetId = $tweet1->getId();
+
                         echo '<p class="tweets"><span class="text1">'.$tweet1->getText().'</span><br>';
 
                         $authorOfTweet = Users::loadUserById($conn, $tweet1->getUserId());
 
                         echo '<span class="text2">author:'.$authorOfTweet->getUsername().'<br>';
-                        echo $tweet1->getCreationDate().'</span><br>';
-                        echo '<a href=deleteTweet.php?id='.$tweetId.'>Delete Tweet</a></p>';
+                        echo $tweet1->getCreationDate().'</span></p>';
+
                         //komentarze
-                        
+                        $tweetId = $tweet1->getId();
                         echo "COMMENTS:";
                         $allcomments = Comment::loadAllCommentsByTweetId($conn, $tweetId);
 
@@ -57,20 +74,19 @@ if (!isset($_SESSION['zalogowany'])){
 
                                 }
                             } else {
-                                echo "None";
+                                echo "No comments";
                             }
 
                     echo '<hr>';
                     }
                 } else {
-                    echo "None";
+                    echo "No tweets";
                 }
                 ?>
-            </div>
         </div>
     </body>
 </html>
-                
-                
-                
-                    
+            
+        
+        
+        

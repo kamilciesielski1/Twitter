@@ -171,5 +171,28 @@ class Tweet{
         }
         
     }
+    
+    public function delete(PDO $conn){
+        
+        if ($this->id != -1){
+            
+            $sql = 'Delete From `Tweet` Where `id` = :id;';
+            
+            try{
+                $query = $conn->prepare($sql);
+                $result = $query->execute(['id' => $this->id]);
+                
+                if ($result) {
+                    $this->id = -1;
+                } else {
+                    return false;
+                }
+                
+            }catch (PDOException $ex){
+                echo $ex->getMessage();
+            }
+        }
+        return true;
+    }
 }
 

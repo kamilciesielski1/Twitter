@@ -3,7 +3,60 @@
 .error{
     color: red;
 }
+/*Inbox*/
+.sender{
+    font-size: 22px;
+    font-weight: bold;
+}
+.newmessages{
+    width: 540px;
+    height: all;
+    border-right: 2px black solid;
+    display: inline-block;
+    
+}
+.readmessages{
+    
+    width: 600px;
+    float: right;
+    display: inline-block;
+    
+}
+
+/*INDEX*/
+.index {
+    margin-left: 700px;
+    margin-top: 100px;
+}
+/*LOGIN*/
+.login{
+    margin-left: 700px;
+    margin-top: 100px;
+}
+/*REGISTER*/
+.register{
+    margin-left: 700px;
+    margin-top: 100px;
+}
+/*MESSAGESENDER*/
+.message {
+    margin-left: 200px;
+    margin-right: 300px;
+}
+#messageText{
+    width: 600px;
+    height: 100px;
+}
+/*USEREVIEW*/
+#sendMes {
+    border: yellow 2px solid;
+    padding: 2px;
+}
 /*MAIN*/
+#deletebutton{
+    background-color: red;
+    
+}
 .panel{
     width: 20%;
     position: fixed;

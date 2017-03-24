@@ -11,13 +11,13 @@ if('POST' === $_SERVER['REQUEST_METHOD']){
         
         if (strlen($username) < 5 || strlen($username) > 20){
             
-            $_SESSION['usernameError'] = "Username musi zawierać od 5-20 znaków!";
+            $_SESSION['usernameError'] = "Username must have 5-20 signs!";
             $walidacja = false;
         }
         
         if (ctype_alnum($username) == false){
             
-            $_SESSION['usernameError'] = "Username musi składać się tylko z cyfr i liter(bez polskich znaków)";
+            $_SESSION['usernameError'] = "Username can only use integers and letters";
             $walidacja = false;
         }
         //sprawdzenie maila w bazie---------------------------------------------
@@ -32,7 +32,7 @@ if('POST' === $_SERVER['REQUEST_METHOD']){
             
             if ($result == true && $query->rowcount() > 0){
                 $walidacja = false;
-                $_SESSION['emailErr'] = "Podany email już istnieje";
+                $_SESSION['emailErr'] = "This email already exists";
             }
         }catch (PDOException $ex){
             echo $ex->getMessage();
@@ -45,20 +45,20 @@ if('POST' === $_SERVER['REQUEST_METHOD']){
         if (strlen($pass1) < 8 || strlen($pass1) > 20){
             
             $walidacja = false;
-            $_SESSION['passErr'] = "Hasło musi zawierać od 8-20 znaków";
+            $_SESSION['passErr'] = "Password must have 8-20 signs";
         }
         
         if ($pass1 !== $pass2){
             
             $walidacja = false;
-            $_SESSION['passErr'] = "Podane hasła nie są identyczne";
+            $_SESSION['passErr'] = "Passwords are not the same";
         }
         
         
         //sprawdzenie zatwierdzenia regulaminu---------------------------------
         if (!isset($_POST['regulamin'])){
             $walidacja = false;
-            $_SESSION['regErr'] = "Musisz zaakceptować regulamin!";
+            $_SESSION['regErr'] = "You have to accept Policy!!";
         }
         //rejestracja jeśli walidajca ok--------------------------------------
         if ($walidacja == true){
@@ -94,11 +94,12 @@ if('POST' === $_SERVER['REQUEST_METHOD']){
         <style>
             body{background-color: lightgreen;}
         </style>
-        <title>Rejestracja</title>
+        <title>Sign up</title>
     </head>
     <body>
+        <div class="register">
         <form method="POST">
-            Username (5-20 znaków):<br><input type="text" name="username"><br>
+            Username (5-20 signs):<br><input type="text" name="username"><br>
             <?php
             if (isset($_SESSION['usernameError'])){
                 echo '<div class="error">'.$_SESSION['usernameError'].'</div>';
@@ -112,7 +113,7 @@ if('POST' === $_SERVER['REQUEST_METHOD']){
                 unset($_SESSION['emailErr']);
             }
             ?>
-            Password (8-20 znaków):<br><input type="password" name="password"><br>
+            Password (8-20 signs):<br><input type="password" name="password"><br>
             <?php
             if (isset($_SESSION['passErr'])){
                 echo '<div class="error">'.$_SESSION['passErr'].'</div>';
@@ -121,15 +122,16 @@ if('POST' === $_SERVER['REQUEST_METHOD']){
             ?>
             Repeat password:<br><input type="password" name="password2"><br>
             
-            <label><input type="checkbox" name="regulamin">Akceptuje regulamin</label><br>
+            <label><input type="checkbox" name="regulamin">Accept Policy</label><br>
             <?php
             if (isset($_SESSION['regErr'])){
                 echo '<div class="error">'.$_SESSION['regErr'].'</div>';
                 unset($_SESSION['regErr']);
             }
             ?>
-            <input type="submit" value="Zarejestruj się">
+            <input type="submit" value="Sign up">
         </form>
+        </div>
     </body>
 </html>
         

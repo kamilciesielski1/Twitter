@@ -4,6 +4,7 @@
     require_once '../Controller/TweetController.php';
     require_once '../Controller/UsersController.php';
     require_once '../Controller/CommentController.php';
+    require_once '../Controller/MessagesController.php';
     
     if (!isset($_SESSION['zalogowany'])){
         header("Location: ../index.php");
@@ -38,6 +39,10 @@
         
     }
     
+    //new messages
+    $newmessages = Messages::loadAllMessagesByStatus0($conn, $_SESSION['id']);
+    $numberOfNewMessages = count($newmessages);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,16 +59,18 @@
         
         <div class="panel">
             <?php
-            echo "Witaj ".$_SESSION['username']."<br>";
+            echo "Welcome ".$_SESSION['username']."<br>";
             ?>
-            <a href="yourAcc.php">Twoje konto</a><br>
-            <a href="logout.php">Logout</a><br>
-            <a href="deleteAcc.php">Usuń konto</a>
+            <a href="yourAcc.php">Your Account</a><br>
+            <a href="Inbox.php">Inbox<?php echo " (".$numberOfNewMessages.")";?></a><br>
+            <a href="SentMail.php">Sent Mail</a><br>
+            <a href="logout.php">Logout</a><br><br>            
+            <a href="deleteAcc.php" id="deletebutton">Delete Account</a>
         </div>
         <div class="posty">
             <form method="POST">
             <textarea maxlength="140" id="text" name="textarea"></textarea>
-            <input type="submit" name="tweet" id="button1" value="Wyślij Tweet">
+            <input type="submit" name="tweet" id="button1" value="Send Tweet">
             </form>
         </div>
         <div class="all">
@@ -74,29 +81,29 @@
                         //tweety i info----------------------------------------------
                         echo '<p class="tweets"><span class="text1">'.$tweet1->getText().'</span><br>';
                         $authorOfTweet = Users::loadUserById($conn, $tweet1->getUserId());
-                        echo '<span class="text2">autor:'.$authorOfTweet->getUsername().'<br>';
+                        echo '<span class="text2">Author:<a href="userReview.php?id='.$authorOfTweet->getId().'">'.$authorOfTweet->getUsername().'</a><br>';
 
                         echo $tweet1->getCreationDate().'</span></p>';
                         //komentarze-------------------------------------------------
                         $tweetId = $tweet1->getId();
                         echo '<div class="comment"><form method="POST">'
                             . '<textarea maxlength=100 id="text2" name="commentext"></textarea>';
-                        echo '<input type="submit" name="comment" value="Wyślij komentarz">'
+                        echo '<input type="submit" name="comment" value="Send comment">'
                             .'<input type=\'hidden\' name=\'tweetId\' value='.$tweetId.'>'
                             . '</form></div>';
-                        echo 'KOMENTARZE:<br>';
+                        echo 'COMMENTS:<br>';
                         $allcomments = Comment::loadAllCommentsByTweetId($conn, $tweetId);
 
                         if (count($allcomments) > 0){
                             foreach($allcomments as $comment){
                                 echo '<div class="comtext"><span class="text3">'.$comment->getText().'</span><br>';
                                 $autorOfComment = Users::loadUserById($conn, $comment->getUserId());
-                                echo "<span class=text2>Autor: ".$autorOfComment->getUsername().'<br>';
+                                echo '<span class=text2>Author:<a href="userReview.php?id='.$autorOfComment->getId().'">'.$autorOfComment->getUsername().'</a><br>';
                                 echo $comment->getCreationDate().'</span></div>';
 
                             }
                         } else {
-                            echo "Brak";
+                            echo "None";
                         }
                         echo '<hr>';
                     }

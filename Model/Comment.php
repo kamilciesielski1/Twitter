@@ -13,39 +13,39 @@ class Comment{
     }
         
     
-    function getId() {
+    public function getId() {
         return $this->id;
     }
 
-    function getUserId() {
+    public function getUserId() {
         return $this->userId;
     }
 
-    function getTweetId() {
+    public function getTweetId() {
         return $this->tweetId;
     }
 
-    function getCreationDate() {
+    public function getCreationDate() {
         return $this->creationDate;
     }
 
-    function getText() {
+    public function getText() {
         return $this->text;
     }
 
-    function setUserId($userId) {
+    public function setUserId($userId) {
         $this->userId = $userId;
     }
 
-    function setTweetId($tweetId) {
+    public function setTweetId($tweetId) {
         $this->tweetId = $tweetId;
     }
 
-    function setCreationDate($creationDate) {
+    public function setCreationDate($creationDate) {
         $this->creationDate = $creationDate;
     }
 
-    function setText($text) {
+    public function setText($text) {
         $this->text = $text;
     }
 
@@ -153,5 +153,28 @@ class Comment{
             echo $ex->getMessage();
         }
         
+    }
+    
+    public function delete(PDO $conn){
+        
+        if ($this->id != -1){
+            
+            $sql = 'Delete From `Comment` Where `id` = :id;';
+            
+            try{
+                $query = $conn->prepare($sql);
+                $result = $query->execute(['id' => $this->id]);
+                
+                if ($result) {
+                    $this->id = -1;
+                } else {
+                    return false;
+                }
+                
+            }catch (PDOException $ex){
+                echo $ex->getMessage();
+            }
+        }
+        return true;
     }
 }

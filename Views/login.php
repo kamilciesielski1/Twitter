@@ -32,7 +32,7 @@ if ('POST' === $_SERVER['REQUEST_METHOD']){
                 header("Location: main.php");
                 
             } else {
-                $_SESSION['error'] = "Użytkownik lub hasło niepoprawne!";
+                $_SESSION['error'] = "Username or passowrd incorrect!";
                 
             }
             
@@ -54,16 +54,16 @@ if ('POST' === $_SERVER['REQUEST_METHOD']){
         <style>
             body{background-color: lightgreen;}
         </style>
-        <title>Logowanie</title>
+        <title>Sign in</title>
     </head>
     <body>
-        <div>
+        <div class="login">
             <form method="POST">
-                <p>Podaj swój email</p>
+                <p>Your email</p>
                 <input type="email" id="email" name="email">
-                <p>Podaj swoje hasło</p>
+                <p>Your password</p>
                 <input type="password" id="password" name="password"><br>
-                <button type="submit">Zaloguj się!</button>
+                <button type="submit">Sign in!</button>
             </form>
             <?php
             if (isset($_SESSION['error'])){

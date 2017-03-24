@@ -10,33 +10,30 @@ class Users{
         $this->setPassword('');
     }
     
-    function getId() {
+    public function getId() {
         return $this->id;
     }
 
-    function getUsername() {
+    public function getUsername() {
         return $this->username;
     }
 
-    function getEmail() {
+    public function getEmail() {
         return $this->email;
     }
 
-    function getPassword() {
+    public function getPassword() {
         return $this->password;
     }
     
-    function setUsername($username) {
+    public function setUsername($username) {
         $this->username = $username;
     }
 
-    function setEmail($email) {
+    public function setEmail($email) {
         $this->email = $email;
     }
     
-    function setId($id) {
-        $this->id = $id;
-    }
 
     public function setPassword($password) {
         if(!empty($password) && strlen($password) >= 8 && strlen($password) <= 20){
@@ -163,7 +160,7 @@ class Users{
         
         if ($this->id != -1){
             
-            $sql = 'Delete From Users Where `id` = :id;';
+            $sql = 'Delete From `Users` Where `id` = :id;';
             
             try{
                 $query = $conn->prepare($sql);
