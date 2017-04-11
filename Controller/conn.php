@@ -1,9 +1,9 @@
 <?php
 
 const DB_HOST = 'localhost';
-const DB_NAME = 'Twitter';
-const DB_USER = 'root';
-const DB_PASS = 'coderslab'; 
+const DB_NAME = '';
+const DB_USER = '';
+const DB_PASS = ''; 
 
 $conn = new PDO(
                     'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8;',
